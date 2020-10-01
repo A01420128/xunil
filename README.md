@@ -33,3 +33,7 @@ los permisos::
 - app.route es la direccion en el navegador
 - ese metodo regresa una template, pero antes se le puede enviar informacion.
 - En las templates si esta entre {%%} son commandos y {{}} son variables del codigo en python.
+
+## Bootstrap
+- Agrege bootstrap para facilitar la presentacion
+- [Documentacion de bootstrap](https://getbootstrap.com/docs/4.5/getting-started/introduction/)
