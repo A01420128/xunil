@@ -21,7 +21,7 @@ los permisos::
 - Se desactiva con:
     - deactivate 
 - Si algo sale mal aqui hay otra forma: https://mothergeo-py.readthedocs.io/en/latest/development/how-to/venv-win.html
--Ya activado el venv installar Flask:
+- Ya activado el venv installar Flask:
     - pip3 install Flask
 
 ## Mostrar la pagina en localhost:
@@ -30,6 +30,6 @@ los permisos::
 - Ya se puede abrir en el navegador.
 
 ## Flask
-app.route es la direccion en el navegador
-ese metodo regresa una template, pero antes se le puede enviar informacion.
-En las templates si esta entre {%%} son commandos y {{}} son variables del codigo en python.
+- app.route es la direccion en el navegador
+- ese metodo regresa una template, pero antes se le puede enviar informacion.
+- En las templates si esta entre {%%} son commandos y {{}} son variables del codigo en python.
