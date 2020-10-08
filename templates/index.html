@@ -2,26 +2,26 @@
 <div class="row m-2">
   <div class="col-sm-4 mb-2">
     <h1>{{ name }}</h1>
-    <form>
+    <form action="/" method="POST">
       <div class="form-group">
-        <label for="inputNumProcesadores">Numero de microprocesadores</label>
-        <input type="number" class="form-control" id="inputNumProc" />
+        <label for="numProc">Numero de microprocesadores</label>
+        <input type="number" class="form-control" id="numProc" />
       </div>
       <div class="form-group">
-        <label for="inputTamQuantum">Tamaño de quantum</label>
-        <input type="number" class="form-control" id="inputTamQuantum" />
+        <label for="tamQuan">Tamaño de quantum</label>
+        <input type="number" class="form-control" id="tamQuan" />
       </div>
       <div class="form-group">
-        <label for="inputTiemCambioContexto">Tiempo Cambio de Contexto</label>
+        <label for="tiemCC">Tiempo Cambio de Contexto</label>
         <input
           type="number"
           class="form-control"
-          id="inputTiemCambioContexto"
+          id="tiemCC"
         />
       </div>
       <div class="form-group">
-        <label for="inputTiemBloqueo">Tiempo de bloqueo</label>
-        <input type="number" class="form-control" id="inputTiemBloqueo" />
+        <label for="tiemBloq">Tiempo de bloqueo</label>
+        <input type="number" class="form-control" id="tiemBloq" />
       </div>
       <button type="submit" class="btn btn-primary">Actualizar</button>
     </form>
