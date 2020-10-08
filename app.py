@@ -3,15 +3,14 @@ app = Flask(__name__)
 
 
 @app.route("/", methods=['GET', 'POST'])
-def index(name='no'):
+def index():
     if request.method == 'POST':
         numProc = request.form['numProc']
         tamQuan = request.form['tamQuan']
         tiemCC = request.form['tiemCC']
         tiemBloq = request.form['tiemBloq']
-        return redirect(url_for('index', name=tiemCC))
-    name = "Ximul Debian"
-    return render_template('index.html', name=name)
+        return render_template('index.html', name=tiemCC)
+    return render_template('index.html', name='Xinul')
 
 if __name__ == "__main__":
-    app.run()
+    app.run(port = 5000, debug = True)
