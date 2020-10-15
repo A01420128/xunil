@@ -106,8 +106,8 @@ def despachador(micros, current_process, cambioContexto, tiempoBloqueo, quantum)
     inicio_exe= PROCESOS[current_process]["Inicio_ejecucion"]
     for key,value in micros.items():
         if(inicio_exe>value[-1][7]):
-            micros[key].append(["VACIO", -1,0,0,0,0,value[-1][7],inicio_exe])
-            print(masChico+ "")
+            if(micros[key][-1][0]!="VACIO"):
+                micros[key].append(["VACIO", -1,0,0,0,0,value[-1][7],inicio_exe])
             if(inicio_exe<tiempoMasChico):
                 masChico=key
         if(value[-1][7]<tiempoMasChico):
@@ -160,6 +160,9 @@ def main(cambioContexto, tiempoBloqueo, numeroMicros, quantum):
         del value[0]
         last_name = value[-1][0]
         if last_name == "VACIO":
-            del value[-1];
+            del value[-1]
     printTabla(micros)
     return micros
+
+
+main(10,10,17,3000)
