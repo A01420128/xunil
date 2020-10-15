@@ -1,3 +1,4 @@
+import math
 PROCESOS= {
     "A": {
         "Duracion": 400,
@@ -94,28 +95,67 @@ def crear_Procesadores(numMicros:int = 1):
     and their tables of execution
     Returns: dictionary of all microprocessors
     """
-    tablas={ }
+    micros={ }
     for i in range(numMicros):
-        tablas.update({
-            "Micro"+str(i+1): [["PROCESO"],["TCC"],["TE"],["TVC"],["TB"],["TT"],["TI"],["TF"]]
-        })
-    return tablas
+        micros["Micro"+str(i+1)]= [ ["ALPHA",-1,0,0,0,0,0,0] ]
+    return micros
 
-def temp(tablas, orden_Procesos):
-    current_process= str(orden_Procesos.pop(0))
-    tablas["Micro1"].append([
-        [current_process],                      #Nombre del proceso
-        [0],                                    #Cambio de contexto
-        [PROCESOS[current_process]["Duracion"]],#Tiempo de ejecución
-        [0],                                    #Vencimiento de Quantum
-        [PROCESOS[current_process]["Bloqueos"]],#Tiempo de bloqueos
-
-    ]
+def despachador(micros, current_process):
+    masChico="Micro1"
+    tiempoMasChico=10000000000000000
+    inicio_exe= PROCESOS[current_process]["Inicio_ejecucion"]
+    for key,value in micros.items():
+        if(inicio_exe>value[-1][7]):
+            micros[key].append(["PAUSA", -1,0,0,0,0,value[-1][7],inicio_exe])
+            print(masChico+ "")
+            if(inicio_exe<tiempoMasChico):
+                masChico=key
+        if(value[-1][7]<tiempoMasChico):
+            masChico=key
+            tiempoMasChico=value[-1][7]
+    tcc_anterior=micros[masChico][-1][1]
+    tf_anterior=micros[masChico][-1][7]
+    
+    if(tcc_anterior!=-1):
+        tcc_actual=cambioContexto
+    else: tcc_actual=0
+    tvc_actual= ((math.ceil((PROCESOS[current_process]["Duracion"])/quantum))-1) * cambioContexto
+    te_actual= PROCESOS[current_process]["Duracion"]
+    tb_actual= PROCESOS[current_process]["Bloqueos"] * tiempoBloqueo
+    tt_actual= tcc_actual+te_actual+tvc_actual+tb_actual
+    ti_actual= tf_anterior
+    tf_actual= ti_actual+tt_actual
+    micros[masChico].append(
+        [current_process,                          #Proceso
+        tcc_actual,                               #Cambio de contexto TCC
+        te_actual,                                #TE
+        tvc_actual,                                #TVC
+        tb_actual,
+        tt_actual,
+        ti_actual,
+        tf_actual
+        ]
     )
 
-def main():
-    tablas= crear_Procesadores()
-    temp(tablas, orden_Procesos)
+##DATOS VARIABLES POR USUARIO
+cambioContexto=15
+tiempoBloqueo=15
+numeroMicros=2
+quantum=3000
+##################################
 
-    
+def printTabla(micros):
+    for key,values in micros.items():
+        print(key)
+        for row in values:
+            print(row)
+        
+
+
+def main():
+    micros= crear_Procesadores(numeroMicros)
+    for proceso in orden_Procesos:
+        despachador(micros, proceso)
+    printTabla(micros)
+    return micros
 main()
