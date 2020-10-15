@@ -137,13 +137,6 @@ def despachador(micros, current_process, cambioContexto, tiempoBloqueo, quantum)
         ]
     )
 
-##DATOS VARIABLES POR USUARIO
-cambioContexto=15
-tiempoBloqueo=15
-numeroMicros=2
-quantum=3000
-##################################
-
 def printTabla(micros):
     for key,values in micros.items():
         print(key)
@@ -165,4 +158,4 @@ def main(cambioContexto, tiempoBloqueo, numeroMicros, quantum):
     return micros
 
 
-main(10,10,17,3000)
+main(15,15,2,3000)
