@@ -1,19 +1,19 @@
 {% extends "head.html" %} {% block body %}
 <div class="row m-2">
   <div class="col-sm-4 mb-2">
-    <h1>{{ name }}</h1>
+      <h1>{{ micro }}</h1>
     <form action="/" method="POST">
       <div class="form-group">
         <label for="numProc">Numero de microprocesadores</label>
-        <input type="number" class="form-control" id="numProc" name="numProc" />
+        <input type="number" class="form-control" id="numProc" name="numProc" value="{{ placeholder.numProc }}"/>
       </div>
       <div class="form-group">
         <label for="tamQuan">Tamaño de quantum</label>
-        <input type="number" class="form-control" id="tamQuan" name="tamQuan" />
+        <input type="number" class="form-control" id="tamQuan" name="tamQuan" value="{{ placeholder.tamQuan }}"/>
       </div>
       <div class="form-group">
         <label for="tiemCC">Tiempo Cambio de Contexto</label>
-        <input type="number" class="form-control" id="tiemCC" name="tiemCC" />
+        <input type="number" class="form-control" id="tiemCC" name="tiemCC" value="{{ placeholder.tiemCC }}"/>
       </div>
       <div class="form-group">
         <label for="tiemBloq">Tiempo de bloqueo</label>
@@ -22,14 +22,16 @@
           class="form-control"
           id="tiemBloq"
           name="tiemBloq"
+          value="{{ placeholder.tiemBloq }}"
         />
       </div>
       <button type="submit" class="btn btn-primary">Actualizar</button>
     </form>
   </div>
   <div class="col-sm-8">
+            {% for name, table in micros.items() %}
     <div class="table-responsive mx-2">
-      <h1>Micro</h1>
+        <h1>{{ name }}</h1>
       <table class="table">
         <thead class="thead-dark">
           <tr>
@@ -37,51 +39,29 @@
             <th scope="col">TCC</th>
             <th scope="col">TE</th>
             <th scope="col">TVQ</th>
+            <th scope="col">TB</th>
             <th scope="col">TT</th>
             <th scope="col">TI</th>
             <th scope="col">TF</th>
           </tr>
         </thead>
         <tbody>
+            {% for row in table %}
           <tr>
-            <td>Mark</td>
-            <td>Otto</td>
-            <td>@mdo</td>
-            <td>@mdo</td>
-            <td>@mdo</td>
-            <td>@mdo</td>
-            <td>@mdo</td>
+              <td>{{ row[0] }}</td>
+              <td>{{ row[1] }}</td>
+              <td>{{ row[2] }}</td>
+              <td>{{ row[3] }}</td>
+              <td>{{ row[4] }}</td>
+              <td>{{ row[5] }}</td>
+              <td>{{ row[6] }}</td>
+              <td>{{ row[7] }}</td>
           </tr>
+          {% endfor %}
         </tbody>
       </table>
     </div>
-    <div class="table-responsive mx-2">
-      <h1>Micro</h1>
-      <table class="table">
-        <thead class="thead-dark">
-          <tr>
-            <th scope="col">Proceso</th>
-            <th scope="col">TCC</th>
-            <th scope="col">TE</th>
-            <th scope="col">TVQ</th>
-            <th scope="col">TT</th>
-            <th scope="col">TI</th>
-            <th scope="col">TF</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>Mark</td>
-            <td>Otto</td>
-            <td>@mdo</td>
-            <td>@mdo</td>
-            <td>@mdo</td>
-            <td>@mdo</td>
-            <td>@mdo</td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
+    {% endfor %}
   </div>
 </div>
 {% endblock %}
