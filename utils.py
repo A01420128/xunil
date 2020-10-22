@@ -97,7 +97,7 @@ def crear_Procesadores(numMicros:int = 1):
     """
     micros={ }
     for i in range(numMicros):
-        micros["Micro"+str(i+1)]= [ ["VACIO",-1,0,0,0,0,0,0] ]
+        micros["Micro"+str(i+1)]= [ ["ALPHA",-1,0,0,0,0,0,0] ]
     return micros
 
 def despachador(micros, current_process, cambioContexto, tiempoBloqueo, quantum):
@@ -146,7 +146,6 @@ def main(cambioContexto, tiempoBloqueo, numeroMicros, quantum):
         despachador(micros, proceso, cambioContexto, tiempoBloqueo, quantum)
     for key, value in micros.items():
         del value[0]
-    printTabla(micros)
     return micros
 
 
