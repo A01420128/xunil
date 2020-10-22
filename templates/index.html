@@ -1,19 +1,37 @@
 {% extends "head.html" %} {% block body %}
 <div class="row m-2">
   <div class="col-sm-4 mb-2">
-      <h1>{{ micro }}</h1>
+    <h1>{{ micro }}</h1>
     <form action="/" method="POST">
       <div class="form-group">
         <label for="numProc">Numero de microprocesadores</label>
-        <input type="number" class="form-control" id="numProc" name="numProc" value="{{ placeholder.numProc }}"/>
+        <input
+          type="number"
+          class="form-control"
+          id="numProc"
+          name="numProc"
+          value="{{ placeholder.numProc }}"
+        />
       </div>
       <div class="form-group">
         <label for="tamQuan">Tamaño de quantum</label>
-        <input type="number" class="form-control" id="tamQuan" name="tamQuan" value="{{ placeholder.tamQuan }}"/>
+        <input
+          type="number"
+          class="form-control"
+          id="tamQuan"
+          name="tamQuan"
+          value="{{ placeholder.tamQuan }}"
+        />
       </div>
       <div class="form-group">
         <label for="tiemCC">Tiempo Cambio de Contexto</label>
-        <input type="number" class="form-control" id="tiemCC" name="tiemCC" value="{{ placeholder.tiemCC }}"/>
+        <input
+          type="number"
+          class="form-control"
+          id="tiemCC"
+          name="tiemCC"
+          value="{{ placeholder.tiemCC }}"
+        />
       </div>
       <div class="form-group">
         <label for="tiemBloq">Tiempo de bloqueo</label>
@@ -29,9 +47,13 @@
     </form>
   </div>
   <div class="col-sm-8">
-            {% for name, table in micros.items() %}
+    {% if msg %}
+    <div class="alert alert-danger" role="alert">
+      {{ msg }}
+    </div>
+    {% endif %} {% for name, table in micros.items() %}
     <div class="table-responsive mx-2">
-        <h1>{{ name }}</h1>
+      <h1>{{ name }}</h1>
       <table class="table">
         <thead class="thead-dark">
           <tr>
@@ -46,16 +68,16 @@
           </tr>
         </thead>
         <tbody>
-            {% for row in table %}
+          {% for row in table %}
           <tr>
-              <td>{{ row[0] }}</td>
-              <td>{{ row[1] }}</td>
-              <td>{{ row[2] }}</td>
-              <td>{{ row[3] }}</td>
-              <td>{{ row[4] }}</td>
-              <td>{{ row[5] }}</td>
-              <td>{{ row[6] }}</td>
-              <td>{{ row[7] }}</td>
+            <td>{{ row[0] }}</td>
+            <td>{{ row[1] }}</td>
+            <td>{{ row[2] }}</td>
+            <td>{{ row[3] }}</td>
+            <td>{{ row[4] }}</td>
+            <td>{{ row[5] }}</td>
+            <td>{{ row[6] }}</td>
+            <td>{{ row[7] }}</td>
           </tr>
           {% endfor %}
         </tbody>

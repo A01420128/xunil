@@ -97,7 +97,7 @@ def crear_Procesadores(numMicros:int = 1):
     """
     micros={ }
     for i in range(numMicros):
-        micros["Micro"+str(i+1)]= [ ["ALPHA",-1,0,0,0,0,0,0] ]
+        micros["Micro"+str(i+1)]= [ ["VACIO",-1,0,0,0,0,0,0] ]
     return micros
 
 def despachador(micros, current_process, cambioContexto, tiempoBloqueo, quantum):
@@ -105,20 +105,15 @@ def despachador(micros, current_process, cambioContexto, tiempoBloqueo, quantum)
     tiempoMasChico=10000000000000000
     inicio_exe= PROCESOS[current_process]["Inicio_ejecucion"]
     for key,value in micros.items():
-        if(inicio_exe>value[-1][7]):
-            if(micros[key][-1][0]!="VACIO"):
-                micros[key].append(["VACIO", -1,0,0,0,0,value[-1][7],inicio_exe])
-            if(inicio_exe<tiempoMasChico):
-                masChico=key
-        if(value[-1][7]<tiempoMasChico):
+        anterior_final = inicio_exe if inicio_exe > value[-1][7] else value[-1][7]
+        if (anterior_final < tiempoMasChico):
             masChico=key
-            tiempoMasChico=value[-1][7]
-    tcc_anterior=micros[masChico][-1][1]
+            tiempoMasChico = anterior_final
     tf_anterior=micros[masChico][-1][7]
-    
-    if(tcc_anterior!=-1):
-        tcc_actual=cambioContexto
-    else: tcc_actual=0
+    if (tf_anterior < inicio_exe):
+        micros[masChico].append(["VACIO", 0,0,0,0,0,tf_anterior,inicio_exe])
+        tf_anterior = inicio_exe
+    tcc_actual = 0 if micros[masChico][-1][0] == "VACIO" else cambioContexto
     tvc_actual= ((math.ceil((PROCESOS[current_process]["Duracion"])/quantum))-1) * cambioContexto
     te_actual= PROCESOS[current_process]["Duracion"]
     tb_actual= PROCESOS[current_process]["Bloqueos"] * tiempoBloqueo
@@ -151,9 +146,6 @@ def main(cambioContexto, tiempoBloqueo, numeroMicros, quantum):
         despachador(micros, proceso, cambioContexto, tiempoBloqueo, quantum)
     for key, value in micros.items():
         del value[0]
-        last_name = value[-1][0]
-        if last_name == "VACIO":
-            del value[-1]
     printTabla(micros)
     return micros
 

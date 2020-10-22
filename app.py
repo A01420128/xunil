@@ -14,10 +14,13 @@ def index():
         tamQuan = int(request.form['tamQuan'])
         tiemCC = int(request.form['tiemCC'])
         tiemBloq = int(request.form['tiemBloq'])
-        micros = utils.main(tiemCC, tiemBloq, numProc, tamQuan)
         placeholders = { "numProc": numProc, "tamQuan": tamQuan, "tiemCC": tiemCC, "tiemBloq": tiemBloq }
-        return render_template('index.html', micros=micros, placeholder=placeholders)
-    return render_template('index.html', micros={}, placeholder={})
+        if numProc <= 0 or tamQuan <= 0 or tiemCC < 0 or tiemBloq < 0:
+            return render_template('index.html', micros={}, placeholder=placeholders, msg="Ocurrio un error")
+        else:
+            micros = utils.main(tiemCC, tiemBloq, numProc, tamQuan)
+            return render_template('index.html', micros=micros, placeholder=placeholders, msg="")
+    return render_template('index.html', micros={}, placeholder={}, msg="")
 
 if __name__ == "__main__":
     app.run(port = 5000, debug = True)
